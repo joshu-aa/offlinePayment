@@ -1,12 +1,34 @@
-/*
- * Welcome to your app's main JavaScript file!
- *
- * We recommend including the built version of this JavaScript file
- * (and its CSS file) in your base layout (base.html.twig).
- */
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./styles/login.css";
+import "./styles/css/all.min.css";
+import "./styles/css/accountStatus.css";
 
-// any CSS you import will output into a single css file (app.css in this case)
-import './styles/app.css';
+import React, { Fragment } from 'react';
+import ReactDOM from 'react-dom';
+import {BrowserRouter, Route, Router, Switch } from 'react-router-dom';
 
-// start the Stimulus application
-import './bootstrap';
+import Login from './js/components/auth/Login';
+import Register from './js/components/auth/Register';
+
+//redux
+import { Provider } from 'react-redux';
+import store from './js/store';
+function App ()
+ {
+    return (
+        <Provider store={store}>
+            <BrowserRouter>
+                <Fragment> 
+                <section className = "container">
+                    <Switch>
+                        <Route exact path="/" component={Login} />
+                        <Route exact path="/register" component={Register} />
+                    </Switch>
+                </section>
+                </Fragment>
+            </BrowserRouter>
+        </Provider>
+    );
+}
+ 
+ReactDOM.render(<App/>, document.getElementById("root"));

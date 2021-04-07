@@ -1,3 +1,209 @@
-body {
-    background-color: lightgray;
-}
+@media only screen and (max-width: 767px) {
+    .lead {
+      font-size: 1rem;
+    }
+  
+    .table {
+      font-size: 0.9em;
+    }
+  
+    .table td {
+      padding: 0.5rem;
+    }
+  
+    .or {
+      font-size: 0.9em;
+    }
+  
+    .btn {
+      font-size: 0.8em;
+    }
+  
+    .recentTrans {
+      margin-bottom: 5em;
+    }
+  
+    .contentbody {
+      margin-top: 10px;
+    }
+  
+    .container {
+      margin-top: 0.5em;
+    }
+  
+    h3 {
+      font-size: 1.5em;
+    }
+  }
+  
+  .clickable {
+    cursor: pointer;
+  }
+  
+  .alert {
+    position: absolute;
+    width: 100%;
+  }
+  
+  #modalFooter {
+    width: 60%;
+    font-size: 0.7em;
+  }
+  
+  #spaceBetween {
+    justify-content: space-between;
+  }
+  
+  #here {
+    font-size: 1.1em;
+    cursor: pointer;
+    text-decoration: underline;
+    color: #ef4b56;
+  }
+  
+  #here:hover {
+    color: #b22222;
+  }
+  
+  #childInvite {
+    cursor: pointer;
+    color: #ef4b56;
+    float: right;
+  }
+  
+  #childInvite:hover {
+    color: #b22222;
+  }
+  
+  .nav-pills .nav-link.active,
+  .nav-pills .show > .nav-link {
+    background-color: #fff;
+    color: #e9bf35;
+  }
+  
+  .react-select__value-container {
+    margin-top: -12px;
+    margin-bottom: -12px;
+  }
+  
+  #wallet {
+    font-size: 3.2em;
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+  
+  #walletError {
+    font-size: 2em;
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+  
+  #walletBalance {
+    font-size: 1.6em;
+    padding-bottom: 0px;
+  }
+  
+  .container {
+    margin-top: 0.8em;
+  }
+  
+  .bottomTab {
+    background-color: white;
+    border-top: 1px solid rgb(221, 221, 221);
+  }
+  
+  .topUp {
+    background-color: #f2efef;
+    margin-bottom: 4rem;
+    padding-bottom: 1rem;
+  }
+  
+  a {
+    color: #6b6b6b;
+  }
+  
+  a:hover {
+    color: #909090;
+  }
+  
+  .linkColor {
+    color: #6b6b6b;
+    cursor: pointer;
+  }
+  
+  .linkColor:hover {
+    color: #909090;
+    cursor: pointer;
+  }
+  
+  h3 {
+    font-size: 1.5em;
+  }
+  
+  .table td {
+    vertical-align: middle;
+  }
+  
+  thead {
+    background-color: #bbbbbb;
+  }
+  
+  tbody {
+    background-color: #f2efef;
+  }
+  
+  .center {
+    text-align: center;
+  }
+  
+  .fixedTable {
+    table-layout: fixed;
+  }
+  
+  .contentbody {
+    margin-top: 15px;
+  }
+  
+  .navbar {
+    background-color: #e9bf35;
+  }
+  
+  .outer2 {
+    display: table;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .middle {
+    display: table-cell;
+    vertical-align: middle;
+  }
+  
+  .inner {
+    margin-left: auto;
+    margin-right: auto;
+    width: 19em;
+  }
+  
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+      monospace;
+  }
+  
+  @font-face {
+    font-family: "Courier New";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Courier New"), local("Courier New");
+    font-display: swap;
+  }
+  
+  .planDetails{
+    color: blue;
+    text-decoration: underline;
+    position: relative;
+    font-weight:normal
+  }

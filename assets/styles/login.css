@@ -1,0 +1,92 @@
+@media only screen and (max-width: 600px) {
+  .woofy {
+    width: 140px;
+  }
+  .lead {
+    font-size: 1rem;
+  }
+}
+
+@media only screen and (min-width: 600px), screen and (min-height: 600px) {
+  .woofy {
+    width: 190px;
+  }
+  .lead {
+    font-size: 1rem;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .woofy {
+    width: 220px;
+  }
+  .lead {
+    font-size: 1.25rem;
+  }
+}
+
+.alert {
+  position: absolute;
+  width: 100%;
+}
+
+label {
+  float: left;
+  display: block;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.woofyRed {
+  color: #ef4b56;
+  margin-top: 0.5em;
+}
+
+a {
+  color: #6b6b6b;
+}
+
+a:hover {
+  color: #909090;
+}
+
+.outer {
+  display: table;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #e9bf35;
+}
+
+.middle {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.inner {
+  margin-left: auto;
+  margin-right: auto;
+  width: 19em;
+  /*whatever width you want*/
+}
+
+.center {
+  text-align: center;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+@font-face {
+  font-family: "Courier New";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Courier New"), local("Courier New");
+  font-display: swap;
+}

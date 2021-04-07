@@ -1,0 +1,17 @@
+/* input[type="checkbox"] 
+{
+    position: relative;
+    width: 10;
+    height: 5;
+    -webkit-appearance:none;
+} */
+
+.inline{
+    position: absolute;
+    display: inline-block;
+    right: auto;
+}
+
+.relative{
+    position: relative;
+}

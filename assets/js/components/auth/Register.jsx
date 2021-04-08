@@ -1,14 +1,16 @@
 import React, { Fragment, useState } from "react";
-import Link from "react-router-dom";
+import { connect } from "react-redux";
+import { setAlert } from "../../actions/alert";
+import PropTypes from "prop-types";
+import Alert from "../layout/Alert";
 
-const Register = () => {
+const Register = ({ setAlert }) => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     contactNumber: "",
     email: "",
-    otcName: "",
-    role: "",
+    companyName: "",
     password: "",
     password2: "",
   });
@@ -18,8 +20,7 @@ const Register = () => {
     lastName,
     contactNumber,
     email,
-    otcName,
-    role,
+    companyName,
     password,
     password2,
   } = formData;
@@ -30,7 +31,7 @@ const Register = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (password !== password2) {
-      console.log("passwords does not match");
+      setAlert("passwords does not match", "danger");
     } else {
       console.log(formData);
     }
@@ -39,7 +40,7 @@ const Register = () => {
   return (
     <Fragment>
       <div className="outer">
-        {/* <Alert /> */}
+        <Alert />
         <div className="middle">
           <div className="inner">
             <div className="text-center">
@@ -59,6 +60,7 @@ const Register = () => {
                   <input
                     className="form-control"
                     type="text"
+                    placeholder="09123456789"
                     name="contactNumber"
                     value={contactNumber}
                     id="contactNumber"
@@ -74,6 +76,7 @@ const Register = () => {
                   <input
                     className="form-control"
                     type="text"
+                    placeholder="juan@gmail.com"
                     name="email"
                     value={email}
                     id="email"
@@ -112,36 +115,21 @@ const Register = () => {
                     required
                   />
                 </div>
-                <div className="form-group">
-                  <label htmlFor="otcName">
-                    <strong>Otc Name</strong>
-                  </label>
-                  <select
-                    className="form-control"
-                    value={otcName}
-                    name="otcName"
-                    onChange={(e) => onChange(e)}>
-                    <option value="" disabled selected>
-                      Select one
-                    </option>
-                    {/* {locationOptions()} */}
-                  </select>
-                </div>
 
                 <div className="form-group">
-                  <label htmlFor="role">
-                    <strong>Role</strong>
+                  <label htmlFor="companyName">
+                    <strong>Company Name</strong>
                   </label>
-                  <select
+                  <input
                     className="form-control"
-                    value={role}
-                    name="role"
-                    onChange={(e) => onChange(e)}>
-                    <option value="" disabled selected>
-                      Select one
-                    </option>
-                    {/* {locationOptions()} */}
-                  </select>
+                    type="text"
+                    placeholder="Company Name"
+                    name="companyName"
+                    value={companyName}
+                    id="companyName"
+                    onChange={(e) => onChange(e)}
+                    required
+                  />
                 </div>
 
                 <div className="form-group">
@@ -197,4 +185,8 @@ const Register = () => {
   );
 };
 
-export default Register;
+Register.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+};
+
+export default connect(null, { setAlert })(Register);

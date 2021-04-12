@@ -1,10 +1,14 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { setAlert } from "../../actions/alert";
 import PropTypes from "prop-types";
 import Alert from "../layout/Alert";
+import { register } from "../../actions/auth";
+import SubmitButton from "../layout/SubmitButton";
+import AutoRenewModal from "../layout/AlertModal";
+import { Redirect } from "react-router-dom";
 
-const Register = ({ setAlert }) => {
+const Register = ({ setAlert, register, modal }) => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -14,6 +18,8 @@ const Register = ({ setAlert }) => {
     password: "",
     password2: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const {
     firstName,
@@ -25,6 +31,10 @@ const Register = ({ setAlert }) => {
     password2,
   } = formData;
 
+  useEffect(() => {
+    setIsSuccess(modal);
+  }, [modal]);
+
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -33,14 +43,33 @@ const Register = ({ setAlert }) => {
     if (password !== password2) {
       setAlert("passwords does not match", "danger");
     } else {
-      console.log(formData);
+      setIsLoading(true);
+      register({
+        firstName,
+        lastName,
+        contactNumber,
+        email,
+        companyName,
+        password,
+      }).then((res) => {
+        if (!res) {
+          setIsLoading(false);
+        }
+      });
     }
   };
+  if (isSuccess) {
+    alert(
+      "your application is now pending for approval. just wait for text message for update."
+    );
+    return <Redirect to="/login" />;
+  }
 
   return (
     <Fragment>
       <div className="outer">
         <Alert />
+
         <div className="middle">
           <div className="inner">
             <div className="text-center">
@@ -165,15 +194,15 @@ const Register = ({ setAlert }) => {
                     required
                   />
                 </div>
-                {/* <SubmitButton
+                <SubmitButton
                   isLoading={isLoading}
                   name={"Register"}
                   handleClick={onSubmit}
-                /> */}
-                <input
+                />
+                {/* <input
                   type="submit"
                   className="btn btn-primary"
-                  value="Register"></input>
+                  value="Register"></input> */}
               </form>
 
               <p />
@@ -187,6 +216,12 @@ const Register = ({ setAlert }) => {
 
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+  modal: PropTypes.bool,
 };
 
-export default connect(null, { setAlert })(Register);
+const mapStateToProps = (state) => ({
+  modal: state.auth.modal,
+});
+
+export default connect(mapStateToProps, { setAlert, register })(Register);

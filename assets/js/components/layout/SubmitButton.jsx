@@ -11,10 +11,10 @@ const SubmitButton = ({ isLoading, name, handleClick, type }) => {
       onClick={(e) => handleClick(e)}>
       {isLoading ? (
         <React.Fragment>
-          <spans
+          <span
             className="spinner-border spinner-border-sm"
             role="status"
-            aria-hidden="true"></spans>{" "}
+            aria-hidden="true"></span>{" "}
           {name}
         </React.Fragment>
       ) : (

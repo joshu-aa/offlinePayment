@@ -9,15 +9,17 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Service\EntitySerializer;
 
 class AccountController extends AbstractController
 {
 
     private $accountsService;
     
-    public function __construct(AccountsService $accountsService)
+    public function __construct(AccountsService $accountsService, EntitySerializer $entitySerializer)
     {
         $this->accountsService = $accountsService;
+        $this->entitySerializer = $entitySerializer;
     }
 
     /**
@@ -32,5 +34,24 @@ class AccountController extends AbstractController
             return $this->json($response, JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
         }
         return $this->json($response);
+    }
+
+    /**
+     * @Route("/api/user", name="user", methods={"GET"})
+     */
+    public function getAccount()
+    {
+        $account = $this->getUser();
+
+        $data = $this->entitySerializer->serializeEntity($account, [
+            "agentId", 
+            "contactNumber", 
+            "firstName", 
+            "lastName",
+            "email",
+            "otcGroup",
+            "roles"
+        ]);
+        return new JsonResponse($data);
     }
 }

@@ -36,8 +36,7 @@ class ValidationService
 
         if (!is_null($data['email'])) {
             $email = $this->userRepository->findOneBy(['email' => $data['email']]);
-
-            if ($email == null) { 
+            if ($email !== null) { 
                 return ['error' => 'email is already existing'];
             }
         }

@@ -21,7 +21,7 @@ function App ()
                 <Fragment> 
                 <section className = "container">
                     <Switch>
-                        <Route exact path="/" component={Login} />
+                        <Route exact path="/login" component={Login} />
                         <Route exact path="/register" component={Register} />
                     </Switch>
                 </section>

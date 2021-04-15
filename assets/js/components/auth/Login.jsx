@@ -1,8 +1,13 @@
 import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../../img/Woofy.png";
+import { login } from "../../actions/auth";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import Alert from "../layout/Alert";
+import { Redirect } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -16,7 +21,8 @@ const Login = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log("SUCCESS");
+    console.log(username, password);
+    login(username, password);
   };
 
   const togglePassword = (e) => {
@@ -26,10 +32,14 @@ const Login = () => {
     });
   };
 
+  if (isAuthenticated) {
+    return <Redirect to="/home" />;
+  }
+
   return (
     <Fragment>
       <div className="outer">
-        {/* <Alert /> */}
+        <Alert />
         <div className="middle">
           <div className="inner">
             <div className="text-center">
@@ -83,7 +93,7 @@ const Login = () => {
                   <input
                     type="submit"
                     className="btn btn-primary"
-                    value="Register"></input>
+                    value="Login"></input>
                 </div>
               </form>
               {/* <div>
@@ -117,4 +127,12 @@ const Login = () => {
   );
 };
 
-export default Login;
+Login.propTypes = {
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { login })(Login);

@@ -10,16 +10,18 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Service\EntitySerializer;
+use App\Service\API\RestClientService;
 
 class AccountController extends AbstractController
 {
 
     private $accountsService;
     
-    public function __construct(AccountsService $accountsService, EntitySerializer $entitySerializer)
+    public function __construct(AccountsService $accountsService, EntitySerializer $entitySerializer, RestClientService $restClientService)
     {
         $this->accountsService = $accountsService;
         $this->entitySerializer = $entitySerializer;
+        $this->restClientService = $restClientService;
     }
 
     /**
@@ -53,5 +55,33 @@ class AccountController extends AbstractController
             "roles"
         ]);
         return new JsonResponse($data);
+    }
+
+       /**
+     * @Route("/api/verify/subscriber", name="verify_subscriber", methods={"POST"})
+     */
+    public function verifySubscriber(Request $request)
+    {
+        $content = json_decode($request->getContent(), true);
+        if ($content['account'] == "") {
+            return new JsonResponse(['isSuccess' => 'loading']);
+        }
+        $response = $this->restClientService->verifyAccounts('POST', '/api/account/verify_user', $content);
+
+        if (array_key_exists("error", $response)) {
+            return new JsonResponse($response);
+        }
+
+        if(array_key_exists("subscriberId", $response)){
+            $response = [
+                'isSuccess' => "Success",
+                'subscriberId' => $response['subscriberId'],
+                'fullName'     => $response['firstName']. ' ' .$response['lastName'],
+                'unitNumber'   => $response['unitNumber']
+            ];
+            return new JsonResponse($response);
+        }
+        return new JsonResponse($response);
+        
     }
 }

@@ -18,7 +18,7 @@ Encore
         }
 
         options["process.env"].url = JSON.stringify({
-            PORTAL_URL: env.parsed.PORTAL_URL
+            COUNTER_URL: env.parsed.COUNTER_URL
           });
     })
 

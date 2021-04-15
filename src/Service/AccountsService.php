@@ -25,7 +25,8 @@ class AccountsService
             $this->passwordEncoder = $passwordEncoder;      
         }
 
-    public function userRegister ($data) {
+    public function userRegister($data) 
+    {
         $validate = $this->validationService->validateRegister($data);
         if (is_array($validate) && array_key_exists('error', $validate)) return $validate;
 

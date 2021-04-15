@@ -1,13 +1,39 @@
 import axios from "axios";
 
 const apiUrl = axios.create({
-    baseURL: process.env.url.COUNTER_URL,
-  });
+  baseURL: process.env.url.COUNTER_URL,
+});
 
-  export default {
-      accounts: {
-        userRegister(payload) {
-            return apiUrl.post("/account/register", payload);
-          },
-        }
-    }
+export default {
+  accounts: {
+    userRegister(payload) {
+      return apiUrl.post("/account/register", payload);
+    },
+
+    userLoad(token) {
+      return apiUrl.get("/api/user", {
+        headers: { Authorization: "Bearer " + token },
+      });
+    },
+
+    userLogin(payload) {
+      return apiUrl.post("/api/login_check", payload, {
+        headers: { "Content-Type": "application/json" },
+      });
+    },
+
+    verifySubscriber(payload, token) {
+      return apiUrl.post("/api/verify/subscriber", payload, {
+        headers: { Authorization: "Bearer " + token },
+      });
+    },
+  },
+
+  otc: {
+    loadTransaction(payload, token) {
+      return apiUrl.post("/api/transfer_load", payload, {
+        headers: { Authorization: "Bearer " + token },
+      });
+    },
+  },
+};

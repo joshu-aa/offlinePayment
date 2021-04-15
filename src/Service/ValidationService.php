@@ -13,15 +13,15 @@ class ValidationService
         $this->userRepository = $userRepository;
     }
 
-    public function validateRegister($data)
+    public function validateRegister ($data)
     {
         if (empty($data['password']) || empty($data['firstName']) || empty($data['lastName'])) return ['error' => 'A required field is missing.'];
 
-        if (empty($data['companyName'])) return ['error' => 'Please put your company name'];
+        if (empty($data['companyName'])) return ['error' => 'Please enter your company name'];
 
-        if (empty($data['contactNumber'])) return ['error' => 'Please put your contactNumber'];
+        if (empty($data['contactNumber'])) return ['error' => 'Please enter your contactNumber'];
 
-        if (empty($data['email'])) return ['error' => 'Please put your email'];
+        if (empty($data['email'])) return ['error' => 'Please enter your email'];
 
         if (strlen($data['contactNumber']) !== 11) return ['error' => 'contact number must be 11 characters long.'];
         
@@ -40,6 +40,13 @@ class ValidationService
                 return ['error' => 'email is already existing'];
             }
         }
+    }
+
+    public function validateLoadTransaction ($data)
+    {
+        if (empty($data['account'])) return ['error' => 'Please enter the account'];
+
+        if (empty($data['amount'])) return ['error' => 'Please enter the amount'];
     }
 
     // public function validatePassword($password)

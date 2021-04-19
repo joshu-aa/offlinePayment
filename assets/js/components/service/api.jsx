@@ -35,5 +35,17 @@ export default {
         headers: { Authorization: "Bearer " + token },
       });
     },
+
+    getAgentTransaction(token, payload) {
+      return apiUrl.post("/api/otc/transaction/agent/get", payload, {
+        headers: { Authorization: "Bearer " + token },
+      });
+    },
+
+    getAgentDefaultTransaction(token) {
+      return apiUrl.get("/api/otc/transaction/agent/get/default", {
+        headers: { Authorization: "Bearer " + token },
+      });
+    },
   },
 };

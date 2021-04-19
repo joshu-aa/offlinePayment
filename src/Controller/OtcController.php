@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Service\TransactionService;
+use App\Service\API\RestClientService;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,26 +16,25 @@ class OtcController extends AbstractController
 
     private $accountsService;
     
-    public function __construct(TransactionService $transactionService, EntitySerializer $entitySerializer)
+    public function __construct(EntitySerializer $entitySerializer, RestClientService $restClientService)
     {
-        $this->transactionService = $transactionService;
+        $this->restClientService = $restClientService;
         $this->entitySerializer = $entitySerializer;
     }
 
     /**
-     * @Route("/api/transfer_load", methods={"POST"}, name="transfer_load")
+     * @Route("/api/otc/transaction/agent/get", methods={"POST"}, name="get_agent_transaction")
      */
-    public function transferLoad(Request $request)
+    public function getAgentTransaction(Request $request)
     {
         $content = json_decode($request->getContent(), true);
 
         $account = $this->getUser();
         $data = $this->entitySerializer->serializeEntity($account, [
-            "agentId", 
-            "otcGroup"
+            "agentId"
         ]);
-        $content['agentData'] = $data;
-        $response = $this->transactionService->transferLoad($content);
+        $content['agentId'] = $data["agentId"];
+        $response = $this->restClientService->requestOtc("POST", "/api/otc/transaction/agent/get", $content);
         
         if (array_key_exists('error', $response)) {
             return $this->json($response, JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
@@ -43,4 +42,22 @@ class OtcController extends AbstractController
         return $this->json($response);
     }
 
+      /**
+     * @Route("/api/otc/transaction/agent/get/default", methods={"GET"}, name="get_agent_transaction_default")
+     */
+    public function getAgentTransactionDefault(Request $request)
+    {
+        $account = $this->getUser();
+        $data = $this->entitySerializer->serializeEntity($account, [
+            "agentId"
+        ]);
+        $content['agentId'] = $data["agentId"];
+
+        $response = $this->restClientService->requestOtc("POST", "/api/otc/transaction/agent/get/default", $content);
+        
+        if (array_key_exists('error', $response)) {
+            return $this->json($response, JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+        }
+        return $this->json($response);
+    }
 }

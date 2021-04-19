@@ -23,7 +23,7 @@ const TransferLoadModal = (props) => {
         setIsLoading(true);
         setIsRequesting(true);
         const result = await api.accounts.verifySubscriber({ account }, token);
-
+        console.log(token);
         if (result.data.hasOwnProperty("code")) {
           setIsError(true);
           setIsLoading(true);
@@ -45,7 +45,11 @@ const TransferLoadModal = (props) => {
       } catch (error) {
         setIsError(true);
         setIsLoading(true);
-        setSubscriberData("System Error please re-login and try again later");
+        if (!token) {
+          setSubscriberData("Token expired. Please re-login");
+        } else {
+          setSubscriberData("System Error. Try again later");
+        }
         setIsRequesting(false);
       }
     };

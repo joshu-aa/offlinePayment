@@ -19,6 +19,12 @@ class RestClientService
             'Identity' => $_ENV['ACCOUNTS_ID'],
             'Content-Type' => 'application/json'
         ];
+
+        $this->otcHeaders = [
+            'API-KEY' => $_ENV['OTC_TOKEN'],
+            'Identity' => $_ENV['OTC_ID'],
+            'Content-Type' => 'application/json'
+        ];
     }
 
     public function transactionOtc($method, $endpoint, $data, $otcHeaders)
@@ -27,6 +33,27 @@ class RestClientService
         
         try {        
             $response = $client->request($method, $this->otcUrl . $endpoint, ['headers' => $otcHeaders, 
+            'json' => $data]);
+            
+            if ($response->getStatusCode() >= 400 && $response->getStatusCode() <= 500) {
+                return $response->toArray(false);
+            } else if ($response->getStatusCode() === 500) {
+                return ['error' => 'Server errorses'];
+            } else {
+                $data = $response->toArray();
+                return $data;
+            }
+        } catch (\Exception $e) {
+            return ['error' => $e];
+        }
+    }
+
+    public function requestOtc($method, $endpoint, $data)
+    {
+        $client = HttpClient::create();
+        
+        try {        
+            $response = $client->request($method, $this->otcUrl . $endpoint, ['headers' => $this->otcHeaders,
             'json' => $data]);
             
             if ($response->getStatusCode() >= 400 && $response->getStatusCode() <= 500) {

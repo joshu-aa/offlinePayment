@@ -5,6 +5,8 @@ import { loadUser } from "../actions/auth";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import TransaferLoadContainer from "./contents/TransaferLoadContainer";
+import TransactionContainer from "./contents/TransactionContainer";
+import RecentActivities from "./contents/recentActivities";
 
 const Home = () => {
   useEffect(() => {
@@ -18,7 +20,6 @@ const Home = () => {
 
   const handleDisable = (bool) => {
     setIsLoading(bool);
-    console.log(bool);
   };
 
   return (
@@ -36,6 +37,7 @@ const Home = () => {
               setIsLoading={setIsLoading}
               handleDisable={handleDisable}
             />
+            <RecentActivities />
           </div>
         </div>
       </div>

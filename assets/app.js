@@ -1,8 +1,14 @@
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/login.css";
 import "./styles/css/all.min.css";
 import "./styles/css/accountStatus.css";
-import "./styles/app.css"
+import "./styles/app.css";
+import 'react-datepicker/dist/react-datepicker-cssmodules.min.css';
+import "react-datepicker/dist/react-datepicker.css";
+
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'bootstrap-css-only/css/bootstrap.min.css';
+import 'mdbreact/dist/css/mdb.css';
 
 import React, { Fragment, useEffect } from 'react';
 import ReactDOM from 'react-dom';

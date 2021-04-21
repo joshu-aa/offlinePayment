@@ -21,7 +21,6 @@ const Login = ({ login, isAuthenticated }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password);
     login(username, password);
   };
 
@@ -43,6 +42,7 @@ const Login = ({ login, isAuthenticated }) => {
         <div className="middle">
           <div className="inner">
             <div className="text-center">
+              {/* instead of logo -> offline payment portal */}
               <img src={Logo} alt="Woofy" className="woofy" />
               <p className="lead" style={{ margin: "0.5em 0 0.5em 0" }}>
                 Sign in to your account
@@ -50,7 +50,7 @@ const Login = ({ login, isAuthenticated }) => {
               <form className="form" onSubmit={(e) => onSubmit(e)}>
                 <div className="form-group">
                   <label htmlFor="username">
-                    <strong>Mobile Number, Email or Subscriber ID</strong>
+                    <strong>Mobile Number, Email or Agent ID</strong>
                   </label>
                   <input
                     className="form-control"
@@ -96,7 +96,7 @@ const Login = ({ login, isAuthenticated }) => {
                     value="Login"></input>
                 </div>
               </form>
-              {/* <div>
+              <div>
                 <p className="my-1">
                   <Link
                     to={{
@@ -106,7 +106,7 @@ const Login = ({ login, isAuthenticated }) => {
                     Forgot Password?
                   </Link>{" "}
                 </p>
-              </div> */}
+              </div>
               <div>
                 <p>
                   Don't have an account? <Link to="/register">Sign Up</Link>

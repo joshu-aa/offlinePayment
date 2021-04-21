@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Service\AccountsService;
+use App\Service\OtpService;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,11 +18,12 @@ class AccountController extends AbstractController
 
     private $accountsService;
     
-    public function __construct(AccountsService $accountsService, EntitySerializer $entitySerializer, RestClientService $restClientService)
+    public function __construct(otpService $otpService, AccountsService $accountsService, EntitySerializer $entitySerializer, RestClientService $restClientService)
     {
         $this->accountsService = $accountsService;
         $this->entitySerializer = $entitySerializer;
         $this->restClientService = $restClientService;
+        $this->otpService = $otpService;
     }
 
     /**

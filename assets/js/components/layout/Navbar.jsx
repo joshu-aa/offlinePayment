@@ -1,12 +1,20 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logout } from "../../actions/auth";
 import Dropdown from "react-bootstrap/Dropdown";
 import Navlogo from "../../../img/WoofyNav.jpg";
+import { loadUser } from "../../actions/auth";
 
 const Navbar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      loadUser();
+    }
+  }, []);
+
   const authLinks = (
     <Dropdown alignRight>
       <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -44,4 +52,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { logout })(Navbar);
+export default connect(mapStateToProps, { logout, loadUser })(Navbar);

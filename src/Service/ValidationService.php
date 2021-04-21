@@ -49,19 +49,19 @@ class ValidationService
         if (empty($data['amount'])) return ['error' => 'Please enter the amount'];
     }
 
-    // public function validatePassword($password)
-    // {
-    //     if (strlen($password) < 6) return ['error' => 'Password must be at least 6 characters long.'];
-    // }
+    public function validatePassword($password)
+    {
+        if (strlen($password) < 6) return ['error' => 'Password must be at least 6 characters long.'];
+    }
 
-    // public function validateOtp($data) 
-    // {
-    //     if (empty($data['account'])) return ['message' => 'Account is required.']; 
+    public function validateOtp($data) 
+    {
+        if (empty($data['account'])) return ['message' => 'Account is required.']; 
         
-    //     if (empty($data['type'])) return ['message' => 'Type is required.'];
+        if (empty($data['type'])) return ['message' => 'Type is required.'];
 
-    //     if (!is_string($data['type']) || strlen($data['type']) > 1) return ['message' => 'Invalid data for type'];
-    // }
+        if (!is_string($data['type']) || strlen($data['type']) > 1) return ['message' => 'Invalid data for type'];
+    }
 
     // public function validateUpdateUnitNumber($data)
     // {

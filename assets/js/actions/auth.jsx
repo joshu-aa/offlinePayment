@@ -7,6 +7,10 @@ import {
   LOGIN_FAIL,
   LOGIN_SUCCESS,
   LOGOUT,
+  OTP_ACCOUNT_SUCCESS,
+  OTP_ACCOUNT_RESET,
+  VERIFY_SUCCESS,
+  VERIFY_FAIL,
 } from "./types";
 import { setAlert } from "./alert";
 import api from "../components/service/api";
@@ -98,4 +102,69 @@ export const login = (username, password) => async (dispatch) => {
 //Logout / Clear
 export const logout = () => (dispatch) => {
   dispatch({ type: LOGOUT });
+};
+
+//OTP Account
+export const otpAccountRegister = (account, type, firstName) => async (
+  dispatch
+) => {
+  const body = JSON.stringify({ account, type, firstName });
+  return api.otc.generateOtp(body).then(
+    (res) => {
+      if (res.data.message) {
+        dispatch(setAlert(res.data.message, "light"));
+        return true;
+      } else {
+        alert(`A verification code has been sent to ${account}`);
+        dispatch({
+          type: OTP_ACCOUNT_SUCCESS,
+          payload: res.data,
+        });
+        return "resend";
+      }
+    },
+    (error) => {
+      if (error.response.status >= 400 && error.response.status < 500) {
+        dispatch(setAlert(error.response.data.error, "danger"));
+      } else if (error.response.status === 500) {
+        dispatch(setAlert("Server", "danger"));
+      }
+      return true;
+    }
+  );
+};
+
+//OTP Verify
+export const otpVerify = (code, account) => async (dispatch) => {
+  const body = JSON.stringify({ code, account });
+  return api.otc.userVerifyOtp(body).then(
+    (res) => {
+      if (res.data.success) {
+        dispatch({
+          type: VERIFY_SUCCESS,
+        });
+      } else if (res.data.expired) {
+        dispatch(
+          setAlert(
+            "Code Expired. Please resend a new verification code",
+            "danger"
+          )
+        );
+        dispatch({
+          type: VERIFY_FAIL,
+        });
+        return true;
+      } else {
+        dispatch(setAlert("Code Invalid", "danger"));
+        dispatch({
+          type: VERIFY_FAIL,
+        });
+        return true;
+      }
+    },
+    (error) => {
+      dispatch(setAlert("Server Error", "danger"));
+      return true;
+    }
+  );
 };

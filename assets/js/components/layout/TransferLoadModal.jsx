@@ -23,7 +23,6 @@ const TransferLoadModal = (props) => {
         setIsLoading(true);
         setIsRequesting(true);
         const result = await api.accounts.verifySubscriber({ account }, token);
-        console.log(token);
         if (result.data.hasOwnProperty("code")) {
           setIsError(true);
           setIsLoading(true);

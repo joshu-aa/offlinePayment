@@ -52,7 +52,7 @@ const TransaferLoadContainer = ({ isLoading, setIsLoading, handleDisable }) => {
         <thead>
           <tr>
             <th colSpan="2">
-              <span>Transfer Load</span>
+              <span>Load Wallet</span>
             </th>
           </tr>
         </thead>

@@ -27,6 +27,10 @@ export default {
         headers: { Authorization: "Bearer " + token },
       });
     },
+
+    forgotPassword(payload) {
+      return apiUrl.post("/api/account/forgot_password", payload);
+    },
   },
 
   otc: {
@@ -45,6 +49,18 @@ export default {
     getAgentDefaultTransaction(token) {
       return apiUrl.get("/api/otc/transaction/agent/get/default", {
         headers: { Authorization: "Bearer " + token },
+      });
+    },
+
+    generateOtp(payload) {
+      return apiUrl.post("/api/account/otp", payload, {
+      headers: { "Content-Type": "application/json" },
+      });
+    },
+
+    userVerifyOtp(payload) {
+      return apiUrl.post("/api/account/verify_otp", payload, {
+      headers: { "Content-Type": "application/json" },
       });
     },
   },
